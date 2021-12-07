@@ -23,9 +23,9 @@ lhs = pd.read_csv(ratings_path, sep='::', names=['user', 'item', 'rating', 'time
 
 print(INF_STR.format(len(lhs), lhs.user.nunique(), lhs.item.nunique(), 'Original Data'))
 
-# We keep only ratings above 3.5
-lhs = lhs[lhs.rating >= 3.5]
-print(INF_STR.format(len(lhs), lhs.user.nunique(), lhs.item.nunique(), 'Only Positive Interactions (>= 3.5)'))
+# Scaling the ratings in the range -1, +1
+
+lhs['rating'] = ((lhs.rating - 1) / 4) * 2 - 1
 
 # Creating simple integer indexes used for sparse matrices
 user_ids = lhs.user.drop_duplicates().reset_index(drop=True)

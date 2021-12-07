@@ -36,7 +36,7 @@ class MABDataset(Dataset):
 
     def __getitem__(self, index) -> T_co:
         entry = self.lhs.iloc[index]
-        return entry.user_id, entry.item_id
+        return entry.user_id, entry.item_id, entry.rating
 
 
 def get_mab_dataloader(data_path: str, split_set: str, **loader_params) -> DataLoader:
