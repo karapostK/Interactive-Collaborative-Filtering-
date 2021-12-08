@@ -38,6 +38,9 @@ class ICF:
     def train(self, train_loader, n_epochs: int = 5):
         # Filling the indexes
         for u_idx, i_idx, rating in tqdm(train_loader, desc='Setting...'):
+            u_idx = int(u_idx.item())
+            i_idx = int(i_idx.item())
+            rating = rating.item()
             self.user_lhs[u_idx].append(i_idx)
             self.item_lhs[i_idx].append(u_idx)
 
@@ -48,6 +51,9 @@ class ICF:
 
             for u_idx, i_idx, rating in tqdm(train_loader, desc='Training'):
                 # Sampling and updating the user
+                u_idx = int(u_idx.item())
+                i_idx = int(i_idx.item())
+                rating = rating.item()
 
                 u_items = self.user_lhs[u_idx]
                 u_ratings = self.user_ratings[u_idx]
@@ -65,7 +71,7 @@ class ICF:
                 B_i = self.user_factors[np.array(i_users)]
                 P_i = B_i.T @ B_i + self.lambda_q * np.eye(self.n_factors)
                 P_inv_i = np.linalg.inv(P_i)
-                mu_i = (P_inv_i @ P_i.T) @ np.array(i_ratings)
+                mu_i = (P_inv_i @ B_i.T) @ np.array(i_ratings)
                 sig_i = P_inv_i * (self.std_noise ** 2)
 
                 sampled_i = np.random.multivariate_normal(mu_i, sig_i)
