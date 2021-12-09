@@ -79,6 +79,9 @@ class ICF:
 
             sum_squared_errors = 0.
             for u_idx, i_idx, rating in train_loader:
+                u_idx = int(u_idx.item())
+                i_idx = int(i_idx.item())
+                rating = rating.item()
                 dot = (self.user_factors[u_idx] * self.item_factors[i_idx]).sum(axis=-1)
                 squared_error = (rating - dot) ** 2
                 sum_squared_errors += squared_error
