@@ -8,4 +8,5 @@ icf = ICF(train_dataset.n_users, train_dataset.n_items)
 
 icf.pretrain(train_dataset, n_epochs=10)
 
-icf.interact_linucb(test_dataset)
+#icf.interact_linucb(test_dataset)
+icf.interact_thompson(test_dataset)

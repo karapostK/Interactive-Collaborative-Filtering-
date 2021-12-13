@@ -6,11 +6,10 @@ from tqdm import tqdm, trange
 
 class ICF:
 
-    def __init__(self, n_users: int, n_items: int, n_factors: int = 32, std_p: float = 1e-2, std_q: float = 1e-2,
-                 std_noise: float = 1e-3):
+    def __init__(self, n_users: int, n_items: int, n_factors: int = 32, std_p: float = 1e-1, std_q: float = 1e-1,
+                 std_noise: float = 1e-1):
         super().__init__()
 
-        # self.mab_dataset = mab_dataset
         self.n_users = n_users
         self.n_items = n_items
         self.n_factors = n_factors
